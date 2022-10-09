@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <%- include('tmp-head.html'); %>
+    <link rel="stylesheet" type="text/css" href="/styles/common.css">
+</head>
+<body>
+    <%- include('tmp-header.html'); %>
+    <content>
+        <div id="frames" class="wrap">
+            <%- include('tmp-side.html'); %>
+            <div id="main">
+                <div class="main-intro">
+                    <textarea id="content" class="thought" placeholder="What are you thinking...?" oninput="countChars(event)" maxlength="500"></textarea>
+                    <div class="sayit"><button id="buttonsay" onclick="sayit()" class="<%=config.user?'':'disabled'%>">SAY IT LOWD</button> <span id="message">You can link to images, audio or video. #Hashtags are allowed. HTML tags are not allowed</span></div>
+                </div>
+                <div id="articles">
+                <% if(posts.length>0) { %>
+                  <% posts.forEach(function(item){ %>       
+                    <article id="post-<%=item.postid%>">
+                        <div class="user-info">
+                            <a href="/a/<%=item.streamid%>">
+                                <img class="mini-avatar" src="/avatars/<%=item.owner%>.jpg" width="48px" height="48px">
+                                <h3 class="username"><%=item.username%></h3>
+                                <h4 class="tagline"><%=item.tagline%></h4>
+                                <h5><a class="gotopost" href="/p/<%=item.postid%>">Posted <%=utils.timeAgo(item.created)%> ago</a></h5>
+                            </a>
+                        </div>
+                        <div class="content">
+                            <%-utils.parseUrls(item.content)%>
+                        </div>
+                        <div class="social">
+                            <button class="button-text" onclick="likeit(this, '<%=item.postid%>')"><%=utils.plural(item.likes, 'Like', 'Likes')%></button> 
+                            <button class="button-text" onclick="reply(this, '<%=item.postid%>')"><%=utils.plural(item.replies, 'Reply', 'Replies')%></button> 
+                            <button class="button-text" onclick="follow(this, '<%=item.streamid%>')"><%=utils.plural(item.followers, 'Follower', 'Followers')%></button> 
+                            <% if(stream && stream.editable) { %>  
+                            <button class="button-text" onclick="editPost('<%=item.postid%>')">Edit Post</button> 
+                            <button class="button-text delete" onclick="deletePost('<%=item.postid%>')">Delete</button> 
+                            <% } %>
+                        </div>
+                    </article>
+                  <% }); %>
+                <% }; %>
+                </div>
+            </div>
+            <%- include('tmp-menu.html'); %>
+        </div>
+    </content>
+    <%- include('tmp-footer.html'); %>
+    <templates>
+        <template id="tmp-newpost">
+            <article id="{postid}">
+                <div class="user-info">
+                    <a href="/a/{streamid}">
+                        <img class="mini-avatar" src="/avatars/{owner}.jpg">
+                        <h3 class="username">{username}</h3>
+                        <h4 class="tagline">{tagline}</h4>
+                    </a>
+                </div>
+                <h5><a class="gotopost" href="/p/{postid}">Posted {created} ago</a></h5>
+                <div class="content">
+                    {content}
+                </div>
+                <div class="social">
+                    <button class="button-text" onclick="likePost({postid})">{likes} Likes</button> <button class="button-text" onclick="reply({postid})">{replies} Replies</button> <button class="button-text" onclick="follow({streamid})">{follow} Following</button> <button class="button-text" onclick="editPost({postid})">Edit Post</button> <button class="button-text delete" onclick="deletePost('{postid}')">Delete</button>
+                </div>
+            </article>
+        </template>
+    </templates>
+    <script src="/scripts/web3.min.js"></script>
+    <script src="/scripts/wallet.js"></script>
+    <script src="/scripts/ctr-abi.js"></script>
+    <script src="/scripts/ctr-bin.js"></script>
+    <script src="/scripts/common.js"></script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <%- include('tmp-head.html'); %>
+	<link rel="stylesheet" type="text/css" href="/styles/common.css">
+</head>
+<body>
+	<%- include('tmp-header.html'); %>
+	<content>
+		<div id="frames" class="wrap">
+			<%- include('tmp-side.html'); %>
+			<div id="main">
+				<article id="<%=post.postid%>">
+                    <div class="user-info">
+                        <a href="/a/<%=stream.streamid%>">
+                            <img class="mini-avatar" src="/avatars/<%=stream.owner%>.jpg" width="48px" height="48px">
+                            <h3 class="username"><%=stream.username%></h3>
+                            <h4 class="tagline"><%=stream.tagline%></h4>
+					        <h5><a class="gotopost" href="/p/<%=post.postid%>">Posted <%=utils.timeAgo(post.created)%> ago</a></h5>
+                        </a>
+                    </div>
+					<div class="content">
+						<%-utils.parseUrls(post.content)%>
+					</div>
+                    <div class="social">
+                        <button class="button-text" onclick="likeit(this, '<%=post.postid%>')"><%=utils.plural(post.likes, 'Like', 'Likes')%></button> 
+                        <button class="button-text" onclick="reply(this, '<%=post.postid%>')"><%=utils.plural(post.replies, 'Reply', 'Replies')%></button> 
+                        <button class="button-text" onclick="follow(this, '<%=stream.streamid%>')"><%=utils.plural(stream.followers, 'Follower', 'Followers')%></button> 
+                        <% if(stream && stream.editable) { %>  
+                        <button class="button-text" onclick="editPost('<%=post.postid%>')">Edit Post</button> 
+                        <button class="button-text delete" onclick="deletePost('<%=post.postid%>')">Delete</button> 
+                        <% } %>
+                    </div>
+
+				</article>
+			</div>
+			<%- include('tmp-menu.html'); %>
+		</div>
+	</content>
+	<%- include('tmp-footer.html'); %>
+	<script src="/scripts/web3.min.js"></script>
+	<script src="/scripts/wallet.js"></script>
+	<script src="/scripts/ctr-abi.js"></script>
+	<script src="/scripts/ctr-bin.js"></script>
+	<script src="/scripts/common.js"></script>
+</body>
+</html>

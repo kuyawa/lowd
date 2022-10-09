@@ -1,0 +1,23 @@
+			<div id="menu">
+				<div class="box">
+					<h3>Welcome</h3>
+					<p><img src="/media/lowd-all.svg" height="44px" style="margin-left:0px"></p>
+					<p class="small">LOWD is a streaming platform in CoinEx blockchain where you can post your thoughts uncensored</p>
+					<% if(!stream?.editable) { %>
+					<h2><a class="accent" href="/create">Create your account!</a></h2>
+					<p class="small">All you need is a crypto wallet like <a id="getmeta" href="https://metamask.io/" target="_blank">Metamask</a> and some funds to start your journey in LOWD</p>
+					<p class="small">The only app that respects your privacy. No ads, no trackers, no analytics to detect usage patterns, nada, just write what's in your head and share it with your friends</p>
+					<h2><a class="accent" href="/create">Start today!</a></h2>
+					<% } %>
+					<hr class="sep">
+					<h2>Trending</h2>
+					<ul id="lastposts" class="menu">
+		  			<% posts.forEach(function(item){ %>
+						<li>
+							<a class="post-text"  href="/p/<%=item.postid%>"><%=item.content%></a><br>
+						    <a class="post-owner" href="/a/<%=item.contract%>">by <%=item.username%></a>
+						</li>
+				    <% }); %>
+					</ul>				
+				</div>
+			</div>

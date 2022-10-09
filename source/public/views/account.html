@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<%- include('tmp-head.html'); %>
+	<link rel="stylesheet" type="text/css" href="/styles/common.css">
+	<link rel="stylesheet" type="text/css" href="/styles/create.css">
+</head>
+<body>
+	<%- include('tmp-header.html'); %>
+	<content>
+		<h1 class="title center">Account Info</h1>
+		<div id="profile" class="wrap">
+			<div id="avatar" class="box">
+				<h1>Avatar</h1>
+				<div class="upload-box">
+					<div id="file-preview"><img id="file-img" class="preview" src="/avatars/<%=stream.owner%>.jpg"></div>
+					<li>Upload file as <span id="file-type">JPG or PNG</span></li>
+					<small class="note">Preferred dimensions 500x500</small><br>
+					<small class="note">Maximum size 30mb</small>
+					<div class="upload-cnt">
+						<div><svg viewBox="0 0 20 20" width="20px" height="20px" class=""><g fill="currentColor" fill-rule="nonzero"><path d="M16.7 12.5v3.333a.867.867 0 0 1-.867.867H4.167a.867.867 0 0 1-.867-.867V12.5a.8.8 0 1 0-1.6 0v3.333A2.467 2.467 0 0 0 4.167 18.3h11.666a2.467 2.467 0 0 0 2.467-2.467V12.5a.8.8 0 1 0-1.6 0z"></path><path d="M6.399 7.768a.8.8 0 1 0-1.131 1.131l4.166 4.167a.8.8 0 0 0 1.132 0l4.166-4.167a.8.8 0 0 0-1.131-1.131L10 11.368l-3.601-3.6z"></path><path d="M10.8 12.5v-10a.8.8 0 1 0-1.6 0v10a.8.8 0 1 0 1.6 0z"></path></g></svg></div>
+						<label id="file-name"></label>
+						<input type="file" name="filex" id="filex" class="input-file" onchange="onPreviewFile(this)">
+					</div>
+				</div>
+			</div>
+			<div id="data" class="box">
+				<li>
+					<label>Select your user name</label>
+					<input type="text" id="uname" class="w200" placeholder="My name" value="<%=stream.username%>">
+				</li>
+				<li>
+					<label>Tag line, motto or zen quote</label>
+					<input type="text" id="motto" class="w400" placeholder="Just thoughts" value="<%=stream.tagline%>">
+				</li>
+				<div class="info">
+					You will be charged for the cost of the transaction plus the size of the avatar as everything will be stored in the blockchain<br>
+					You need to have your wallet connected and funds in your account as you will be asked to sign a transaction, once the payment is confirmed your account will be updated with the new info
+				</div>
+				<div class="center">
+					<button id="create" onclick="onUpdate()">Update</button>
+					<div id="message"></div>
+				</div>
+			</div>
+		</div>
+	</content>
+	<%- include('tmp-footer.html'); %>
+	<script>
+	let stream = <%-JSON.stringify(stream,null,4)%>;
+	</script>
+	<script src="/scripts/web3.min.js"></script>
+	<script src="/scripts/wallet.js"></script>
+	<script src="/scripts/ctr-abi.js"></script>
+	<script src="/scripts/ctr-bin.js"></script>
+	<script src="/scripts/account.js"></script>
+	<script src="/scripts/common.js"></script>
+</body>
+</html>

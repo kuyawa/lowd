@@ -1,0 +1,56 @@
+			<div id="side">
+				<div id="streaminfo" class="box">
+					<% if(stream) { %>
+						<h1><a id="streamname" href="/a/<%=stream.streamid%>"><%=stream.username%></a></h1>
+						<div id="avatar">
+							<a href="/a/<%=stream.streamid%>"><img src="/avatars/<%=stream.owner%>.jpg" width="200px"></a>
+						</div>
+						<h3 id="streamtitle"><%=stream.title%></h3>
+						<h5 id="streammotto"><%=stream.tagline%></h5>
+						<h4>Account: <a id="streamid" href="<%=config.explorer%>/address/<%=stream.streamid%>/transactions" target="_blank"><%=stream.streamid.substr(0,12)%>...</a> <img class="copyto" src="/media/icon-copy.svg" width="16px" onclick="copyToClipboard('<%=stream.streamid%>')"></h4>
+							<% if(config.user==stream.owner) { %>
+							<div>
+								<a id="myaccount" class="button center" href="/account">Edit my account</a>
+							</div>
+							<% } else { %>
+							<div>
+								<button id="follow" class="block" onclick="follow(this, '<%=stream.streamid%>')">FOLLOW</a>
+							</div>
+							<% } %>
+					<% } else { %>
+						<h1><a id="streamname" href="/create">My Stream</a></h1>
+						<div id="avatar">
+							<a href="/create"><img src="/media/nopic.png" width="200px"></a>
+						</div>
+						<h5 id="streammotto">You don't have an account</h5>
+						<div>
+							<a id="newpost" class="button center" href="/create">REGISTER</a>
+						</div>
+					<% } %>
+					<% if(trend.length>0) { %>
+						<hr class="sep">
+						<h3>Latest streams</h3>
+						<ul class="menu">
+					  		<% trend.forEach(function(item){ %>
+							<li>
+                				<div class="user-info">
+									<a href="/a/<%=item.streamid%>"> 
+										<img class="mini-avatar" src="/avatars/<%=item.owner%>.jpg" width="48px" height="48px"> 
+										<h3 class="username"><%=item.username%></h3>
+										<h4 class="tagline"><%=item.tagline%></h4>
+										<h5 class="joined">Joined <%=utils.timeAgo(item.created)%> ago</h5>
+									</a>
+								</div>
+							</li>
+							<% }) %>
+						</ul-->
+					<% } %>
+					<!--h3>Following</h3>
+					<ul class="menu">
+						<li>Lewandowsky</li>
+						<li>Cristiano</li>
+						<li>LionelMessi</li>
+						<li>Mbappe</li>
+					</ul-->
+				</div>
+			</div>
